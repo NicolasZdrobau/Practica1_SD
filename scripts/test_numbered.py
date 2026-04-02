@@ -5,7 +5,7 @@ BENCHMARK_FILE = "benchmark_numbered_60000.txt"
 
 service = TicketService()
 service.redis.flushdb()   # solo en pruebas
-"""
+
 success_count = 0
 failure_count = 0
 invalid_count = 0
@@ -46,11 +46,4 @@ print("Execution time:", end - start)
 print("Success count:", success_count)
 print("Failure count:", failure_count)
 print("Invalid count:", invalid_count)
-"""
-
-
-
-
-print(service.buy_numbered_ticket("userA", 42, "reqA"))   # compra asiento
-print(service.buy_numbered_ticket("userB", 42, "reqB"))   # falla
-print(service.buy_numbered_ticket("userB", 42, "reqB"))   # misma request otra vez
+service.redis.flushdb()   # solo en pruebas

@@ -1,11 +1,17 @@
+import os
+
 from flask import Flask, request, jsonify
 from ticket_logic.ticket_service import TicketService
 import sys
+import socket
 
 " Creamos la aplicación Flask y el servicio de tickets """
 app = Flask(__name__)
 ticket_service = TicketService()
 
+
+app.config["SERVER_PORT"] = int(os.getenv("SERVER_PORT", "5000"))
+app.config["SERVER_ID"] = socket.gethostname()
 
 
 @app.route("/buy/numbered", methods=["POST"])
@@ -31,7 +37,8 @@ def buy_numbered():
 
     return jsonify({
     "result": result,
-    "server_port": app.config["SERVER_PORT"]
+    "server_port": app.config["SERVER_PORT"],
+    "server_id": app.config["SERVER_ID"]
 }), 200
 
 @app.route("/buy/unnumbered", methods=["POST"])
@@ -52,7 +59,8 @@ def buy_unnumbered():
 
         return jsonify({
         "result": result,
-        "server_port": app.config["SERVER_PORT"]
+        "server_port": app.config["SERVER_PORT"],
+        "server_id": app.config["SERVER_ID"]
 }), 200
 
 if __name__ == "__main__":
