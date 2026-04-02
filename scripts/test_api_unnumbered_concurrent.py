@@ -6,14 +6,15 @@ from ticket_logic.ticket_service import TicketService
 results = []
 lock = threading.Lock()
 
-URL = "http://127.0.0.1:8080/buy/numbered"
+URL = "http://127.0.0.1:8080/buy/unnumbered"
+
 service = TicketService()
 service.redis.flushdb()   # solo en pruebas
+service.init_unnumbered_stock()
 
 def worker(i):
     payload = {
         "client_id": f"user{i:05d}",
-        "seat_id": 42,
         "request_id": f"{i:05d}"
     }
 

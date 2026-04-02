@@ -34,6 +34,27 @@ def buy_numbered():
     "server_port": app.config["SERVER_PORT"]
 }), 200
 
+@app.route("/buy/unnumbered", methods=["POST"])
+def buy_unnumbered():
+        """ Endpoint para comprar un ticket no numerado. Se espera un JSON y comprueba que tenga los campos necesarios. Luego llama al servicio de tickets y devuelve el resultado. """
+        data = request.get_json()
+
+        if data is None:
+            return jsonify({"error": "Request body must be JSON"}), 400
+        
+        client_id = data.get("client_id")
+        request_id = data.get("request_id")
+
+        if not client_id or not request_id:
+            return jsonify({"error": "Missing required fields: client_id, request_id"}), 400
+        
+        result = ticket_service.buy_unnumbered_ticket(client_id, request_id)
+
+        return jsonify({
+        "result": result,
+        "server_port": app.config["SERVER_PORT"]
+}), 200
+
 if __name__ == "__main__":
     port = 5000
     if len(sys.argv) > 1:
@@ -43,3 +64,5 @@ if __name__ == "__main__":
 
     print(f"Starting API on port {port}")
     app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
+
+    
