@@ -10,7 +10,7 @@ echo "Installing Python dependencies..."
 pip3 install flask redis gunicorn requests
 
 echo "Copying systemd service..."
-sudo cp api/api.service /etc/systemd/system/api.service
+sudo cp communication_direct/api.service /etc/systemd/system/api.service
 
 echo "Reloading systemd..."
 sudo systemctl daemon-reexec
