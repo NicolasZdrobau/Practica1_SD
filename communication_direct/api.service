@@ -8,7 +8,7 @@ WorkingDirectory=/home/ec2-user/Practica1_SD
 Environment="SERVER_PORT=5000"
 Environment="REDIS_HOST=10.0.1.55"
 Environment="REDIS_PORT=6379"
-ExecStart=/home/ec2-user/.local/bin/gunicorn -w 2 --threads 2 -b 0.0.0.0:5000 communication_direct.api:app
+ExecStart=/home/ec2-user/.local/bin/gunicorn -w 2 --threads 2 -b 0.0.0.0:5000 communication_direct.api:app --access-logfile - --error-logfile -
 Restart=always
 
 [Install]
