@@ -4,7 +4,7 @@ from ticket_logic.ticket_service import TicketService
 BENCHMARK_FILE = "benchmark_numbered_60000.txt"
 
 service = TicketService()
-service.redis.flushdb()   # solo en pruebas
+
 
 success_count = 0
 failure_count = 0
@@ -46,4 +46,3 @@ print("Execution time:", end - start)
 print("Success count:", success_count)
 print("Failure count:", failure_count)
 print("Invalid count:", invalid_count)
-service.redis.flushdb()   # solo en pruebas
