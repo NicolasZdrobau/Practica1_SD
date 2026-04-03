@@ -1,4 +1,4 @@
- Concert Ticket Benchmark – Numbered Seats
+#Concert Ticket Benchmark – Numbered Seats
 # Seats: 1..20000
 # Format: BUY <client_id> <seat_id> <request_id>
 
