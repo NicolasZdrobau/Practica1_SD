@@ -1,14 +1,17 @@
 import pika  # Llibreria estàndard per RabbitMQ
-from indirect_communication.backend import TicketService
+from backend import TicketService
+
+HOST = '10.0.1.16'
+credentials = pika.PlainCredentials("admin", "admin123")
 
 # Connectem amb el servidor RabbitMQ
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST, credentials=credentials))
 channel = connection.channel()
 
 # Ens assegurem que la cua existeix
 channel.queue_declare(queue='ticket_requests', durable=True)
 
-backend = TicketService()
+backend = TicketService(host=HOST)
 
 def callback(ch, method, properties, body):
     # El missatge arriba com a string, ex: "BUY client_1 req_101" o "BUY client_1 42 req_2001"
