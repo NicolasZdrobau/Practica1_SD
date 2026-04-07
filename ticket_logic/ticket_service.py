@@ -6,10 +6,6 @@ class TicketService:
         self.unnumbered_counter_key = "tickets:unnumbered:sold"
         self.limit = 20000
 
-    " Resetea el stock de tickets no numerados a 0, es decir, sin tickets vendidos"
-    def init_unnumbered_stock(self):
-        self.redis.set(self.unnumbered_counter_key, 0)
-    
     def buy_numbered_ticket(self, client_id, seat_id, request_id):
         if seat_id < 1 or seat_id > 20000:
             return "Invalid seat ID"

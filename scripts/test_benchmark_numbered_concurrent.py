@@ -3,7 +3,7 @@ import time
 import requests
 
 if len(sys.argv) != 2:
-    print("Uso: python3 scripts/benchmark_numbered_http.py <benchmark_file>")
+    print("Uso: python3 scripts/test_benchmark_numbered_concurrent.py <benchmark_file>")
     sys.exit(1)
 
 BENCHMARK_FILE = sys.argv[1]
