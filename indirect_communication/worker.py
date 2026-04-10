@@ -1,7 +1,9 @@
 import pika  # Llibreria estàndard per RabbitMQ
 from backend import TicketService
 
+# Modificar per l'adreça del servidor RabbitMQ si no està en local
 HOST = 'localhost'
+# MOdificar per les credencials si no són les per defecte (admin/admin123 en AWS)
 credentials = pika.PlainCredentials("guest", "guest")
 
 # Connectem amb el servidor RabbitMQ

@@ -3,7 +3,9 @@ import sys
 import time
 import uuid
 
+# Modificar per l'adreça del servidor RabbitMQ si no està en local
 RABBIT_HOST = 'localhost' 
+# Modificar per les credencials si no són les per defecte (admin/admin123 en AWS)
 RABBIT_USER = 'guest'
 RABBIT_PASS = 'guest'
 
@@ -16,11 +18,11 @@ class TicketClient:
         )
         self.channel = self.connection.channel()
 
-        # 1. Creem una cua exclusiva i temporal per rebre les respostes
+        # Creem una cua exclusiva i temporal per rebre les respostes
         result = self.channel.queue_declare(queue='', exclusive=True)
         self.callback_queue = result.method.queue
 
-        # 2. Ens subscrivim a la cua de respostes
+        # Ens subscrivim a la cua de respostes
         self.channel.basic_consume(
             queue=self.callback_queue,
             on_message_callback=self.on_response,
@@ -79,7 +81,6 @@ class TicketClient:
 
             start_time = time.time()
 
-            # ENVIAMENT
             for line in lines:
                 corr_id = str(uuid.uuid4())
                 self.channel.basic_publish(
@@ -95,7 +96,6 @@ class TicketClient:
             
             print(f" [+] Enviades {self.total_requests} peticions. Esperant respostes...")
 
-            # ESPERA DE RESPOSTES
             # Es queda en aquest bucle fins que rebem totes les respostes
             while self.responses_received < self.total_requests:
                 self.connection.process_data_events(time_limit=None)
